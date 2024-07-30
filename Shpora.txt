@@ -15,7 +15,7 @@ rmdir SomeEmptyDir           #Удаление пустой директории
 rm -r SomeNotEmptyDir        #Удаление НЕпустой директории
 
 git init                     #Инициализация git в директории(возможность пользоваться им)
-git remote add origin RepositoryInGit BranchName
+git remote add origin RepositoryInGit
                              #Связать главный удаленный и локальный репозитории
 git remote -v                #Проверка, связались ли репозитории
 
@@ -55,9 +55,35 @@ git push -u RepositoryInGit BranchName
                              #Первое сохранение изменений в удаленном репозитории
 git push                     #Последующие сохранения изменений в удаленном репозитории
 
+git clone RepositoryInGit OptionalNewName
+                             #клонирование удаленного репозитория в локальный
+
 git diff                     #Сравнивает последнюю закоммиченную версию файла с той, что находится в состоянии modified.(git add не было)
 git diff --staged            #Показывает изменения в staged-файлах относительно последних закоммиченных версий.
+git diff SomeHash123 HEAD    #Сравнивает последний коммит (всегда называется HEAD) с некоторым указанным
 
 git branch                   #Показывает, на какой ветке находишься
+git checkout Branchname      #Переход к другой ветке Branchname
+git checkout -b Branchname   #Переход к другой новосозданной ветке Branchname
 
-echo "Some code or message" >> teremok.txt
+git fetch origin             #Загружает изменения с удаленного репозитория в локальный репозиторий, но не вносит их в вашу текущую ветку.
+git merge origin/main        #Объединяет изменения из одной ветки в другую. Обычно используется для слияния изменений из одной ветки в текущую ветку.
+git pull origin main         #Комбинирует git fetch и git merge. Загружает изменения с удаленного репозитория и сразу же сливает их в вашу текущую ветку.
+git pull origin main --allow-unrelated-histories
+                             #Если ветки не имеют общего предка
+echo "Some code or message" >> SomeFile.txt
+                             #Добавление в конец файла текста
+echo "Some code or message" > SomeFile.txt
+                             #Замена всего текста(кода) в файле на текст
+
+git mv SomeFile.txt NewNameSomeFile.txt
+                             #Переименование файла
+
+git stash save "Message"
+                             #Сохранит все незакоммиченные изменения (как изменения в файлах, так и новые файлы) в стэш (мини-коммит)
+и вернет рабочую директорию в чистое состояние.
+git stash list               #Покажет все сохраненные стэши
+git stash apply stash{Num}   #Применит изменения из указанного сохраненного стэша обратно в рабочую директорию
+git stash drop stash@{2}     #Удалит стэш
+git stash clear              #Удалит все стэши
+git stash --keep-index       #Сохранит только изменения, не добавленные в индекс.
